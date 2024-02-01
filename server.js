@@ -23,6 +23,24 @@ io.on('connection', (socket) => {
     tryPairingUsers();
   });
 
+  socket.on('leave', () => {
+    console.log(`Socket ${socket.id} left the chat`);
+  
+    const chatId = Object.keys(activeChats).find(key => activeChats[key].includes(socket.id));
+  
+    if (chatId) {
+      const partnerId = getPartnerId(chatId, socket.id);
+      io.to(partnerId).emit('pairDisconnected');
+      
+      delete activeChats[chatId];
+    }
+  
+    delete waitingUsers[socket.id];
+    notifyOnlineUsersCount();
+    tryPairingUsers();
+  });
+  
+  
   socket.on('typing', () => {
     const chatId = Object.keys(activeChats).find(key => activeChats[key].includes(socket.id));
     if (chatId && activeChats[chatId]) {
