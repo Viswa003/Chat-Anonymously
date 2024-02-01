@@ -12,9 +12,12 @@ header {
   justify-content: space-between;
   padding: 10px;
   position: fixed;
+  padding-top: 10px;
+  padding-bottom: 10px;
   left: 0%;
   right: 0%;
   top: 0;
+  height:60px;
 }
 
 header img {
@@ -24,8 +27,9 @@ header img {
 }
 
 #online-count {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
+  color: rgb(64, 233, 92);
 }
 
 main {
@@ -38,7 +42,8 @@ main {
 
 #chat-container {
   overflow-y: auto;
-  padding: 10px;
+  padding-top: 100px;
+  padding-bottom: 200px;
 }
 
 #chat-form {
@@ -59,7 +64,8 @@ center{
 
 #notification{
   color: rgb(0, 0, 0);
-  opacity: 0.5;
+  opacity: 0.7;
+  font-size: 15px;
 }
 
 #message-input {
@@ -75,13 +81,14 @@ center{
 button[type="submit"],button[type="button"] {
   border-radius: 15px;
   height: 48px;
-  width: 85px;
+  width: 70px;
   border: none;
   background-color: #0095ff;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
 }
+
 
 
 .message {
@@ -94,10 +101,14 @@ button[type="submit"],button[type="button"] {
 
 .message.right {
   align-self: flex-end;
-  background-color: #DCF8C6;
+  background-color: #00ff1a;
 }
 
 .message.left {
   align-self: flex-start;
   background-color: #FFFFFF;
+}
+
+h3{
+  font-family: cursive;
 }
