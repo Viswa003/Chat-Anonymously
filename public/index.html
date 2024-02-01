@@ -10,20 +10,22 @@
 <body>
   <header>
     <img src="logo.png" alt="Logo">
-    <h1>Chat Anonymously!</h1>
-    <p id="online-count">Online</p>
+    <h3>Chat Anonymously!
+      <div id="notification"></div>
+    </h3>
+    
+    <h3 id="online-count">Online</h3>
   </header>
 
   <main>
     <center>
-      <div id="notification"></div>
-      <div id="typing-display"></div>
+
 
     </center>
     <div id="chat-container"></div>
     <div id="chat-input">
       <form id="chat-form">
-        <button id="reconnect-button" type="button">Reconnect</button>
+        <button id="reconnect-button" type="button">Refresh</button>
         <input id="message-input" placeholder="Type here.." type="text">
         <button type="submit">Send</button>
       </form>
