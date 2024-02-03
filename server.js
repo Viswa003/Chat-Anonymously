@@ -16,13 +16,31 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log(`Socket ${socket.id} connected`);
+  // console.log(`Socket ${socket.id} connected`);
 
   socket.on('pairRequest', () => {
     waitingUsers[socket.id] = socket;
     tryPairingUsers();
   });
 
+  socket.on('leave', () => {
+    // console.log(`Socket ${socket.id} left the chat`);
+  
+    const chatId = Object.keys(activeChats).find(key => activeChats[key].includes(socket.id));
+  
+    if (chatId) {
+      const partnerId = getPartnerId(chatId, socket.id);
+      io.to(partnerId).emit('pairDisconnected');
+      
+      delete activeChats[chatId];
+    }
+  
+    delete waitingUsers[socket.id];
+    notifyOnlineUsersCount();
+    tryPairingUsers();
+  });
+  
+  
   socket.on('typing', () => {
     const chatId = Object.keys(activeChats).find(key => activeChats[key].includes(socket.id));
     if (chatId && activeChats[chatId]) {
@@ -41,7 +59,7 @@ io.on('connection', (socket) => {
   
 
   socket.on('sendMessage', (sentMessage) => {
-    console.log(`Socket ${socket.id} sent message: ${sentMessage.message}`);
+    // console.log(`Socket ${socket.id} sent message: ${sentMessage.message}`);
 
     const chatId = sentMessage.chatId;
 

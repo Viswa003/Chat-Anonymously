@@ -5,20 +5,22 @@ const chatContainer = document.getElementById('chat-container');
 const onlineCountElement = document.getElementById('online-count');
 
 socket.on('connect', () => {
-  console.log(`Socket ${socket.id} connected`);
+  // console.log(`Socket ${socket.id} connected`);
   socket.emit('pairRequest'); // Emit a pair request event when the socket is connected
 });
 
 socket.on('disconnect', () => {
-  console.log(`Socket ${socket.id} disconnected`);
+  // console.log(`Socket ${socket.id} disconnected`);
+  displayMessage(`You are disconennected!`);
+
 });
 
 let chatId = null;
 
 socket.on('pairSuccess', (data) => {
-  console.log(`Paired with ${data.partnerID} in chat ${data.roomID}`);
+  // console.log(`Paired with ${data.partnerID} in chat ${data.roomID}`);
   chatId = data.roomID;
-  displayMessage(`You are now connected with a random stranger!`);
+  displayNotification(`You are now connected with a random stranger!`);
 
   while (chatContainer.firstChild) {
     chatContainer.removeChild(chatContainer.firstChild);
@@ -26,7 +28,7 @@ socket.on('pairSuccess', (data) => {
 });
 
 socket.on('pairDisconnected', () => {
-  console.log('Your partner has disconnected');
+  // console.log('Your partner has disconnected');
   chatId = null;
   displayMessage('Your partner has disconnected');
 });
@@ -34,7 +36,7 @@ socket.on('pairDisconnected', () => {
 socket.on('message', (data) => {
   const formattedMessage = (data.sender === socket.id) ? 'You:' : 'Stranger:';
   const textColor =  (data.sender === socket.id) ? '#006400' : '#8B2323';
-  console.log('Received Message:', formattedMessage, data.message);
+  // console.log('Received Message:', formattedMessage, data.message);
   
 
   // Determine the alignment and color based on the sender
@@ -76,13 +78,13 @@ chatForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const message = messageInput.value.trim();
   if (message !== '' && socket.connected) {
-    console.log('Emitting sendMessage event');
+    // console.log('Emitting sendMessage event');
     socket.emit('sendMessage', { message, chatId }, (acknowledgment) => {
-      if (acknowledgment && acknowledgment.error) {
-        console.error(`Error during sendMessage: ${acknowledgment.error}`);
-      }
+      // if (acknowledgment && acknowledgment.error) {
+      //   console.error(`Error during sendMessage: ${acknowledgment.error}`);
+      // }
     });
-    console.log(message+" "+" "+chatId);
+    // console.log(message+" "+" "+chatId);
     messageInput.value = '';
   }
 });
@@ -96,7 +98,7 @@ function displayMessage(messages) {
   messageElement.classList.add('message');
   messageElement.innerHTML = messages;
   chatContainer.appendChild(messageElement);
-  console.log(messages);
+  // console.log(messages);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
@@ -105,7 +107,7 @@ function displayNotification(message) {
 }
 
 socket.on('connect_error', (error) => {
-  console.error(error);
+  // console.error(error);
   displayNotification('Could not connect to the server.');
 });
 
@@ -114,7 +116,7 @@ socket.on('disconnect', () => {
 });
 
 socket.on('reconnect_error', (error) => {
-  console.error(error);
+  // console.error(error);
   displayNotification('Could not reconnect to the server.');
 });
 

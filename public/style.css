@@ -44,6 +44,8 @@ main {
   overflow-y: auto;
   padding-top: 100px;
   padding-bottom: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 #chat-form {
@@ -96,17 +98,17 @@ button[type="submit"],button[type="button"] {
   max-width: 80%;
   margin: 10px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .message.right {
   align-self: flex-end;
-  background-color: #00ff1a;
+  border-bottom-right-radius: 0; 
 }
 
 .message.left {
   align-self: flex-start;
-  background-color: #FFFFFF;
+  border-bottom-left-radius: 0;
 }
 
 h3{
