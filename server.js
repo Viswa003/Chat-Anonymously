@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
 
   socket.on('leave', () => {
     // console.log(`Socket ${socket.id} left the chat`);
-  
+
     const chatId = Object.keys(activeChats).find(key => activeChats[key].includes(socket.id));
   
     if (chatId) {
