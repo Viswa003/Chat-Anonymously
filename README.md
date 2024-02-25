@@ -56,7 +56,6 @@ Follow these instructions to get the project up and running on your local machin
 
 2. Open your web browser and go to [http://localhost:3000](http://localhost:3000).
 
-3. [Provide any additional steps or usage instructions]
 
 ## Contributing
 
